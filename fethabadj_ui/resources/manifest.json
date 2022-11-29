@@ -1,0 +1,106 @@
+{
+	"sap.app": {
+		"id": "fethabadj_ui",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"crossNavigation": {
+			"inbounds": {
+				"fethabadj_uiShow": {
+					"title": "fethabadj_ui",
+					"icon": "sap-icon://share-2",
+					"semanticObject": "fethabadj_ui",
+					"action": "show",
+					"deviceTypes": {
+						"desktop": true,
+						"tablet": true,
+						"phone": true
+					}
+				}
+			},
+			"outbounds": {}
+		}
+	},
+	"sap.ui5": {
+		"_version": "1.2.0",
+		"componentName": "fethabadj_ui",
+		"rootView": {
+			"viewName": "fethabadj_ui.views.App",
+			"type": "XML",
+			"async": true,
+			"id": "app"
+		},
+		"dependencies": {
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {}
+			}
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"type": "View",
+				"viewType": "XML",
+				"path": "fethabadj_ui/views",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"transition": "slide",
+				"async": true
+			},
+			"routes": [{
+				"pattern": "",
+				"name": "appPage",
+				"target": "page"
+			}, {
+				"pattern": "vigencia",
+				"name": "appVigencia",
+				"target": "vigencia"
+			}, {
+				"pattern": "taxas",
+				"name": "appTaxas",
+				"target": "taxas"
+			}, {
+				"pattern": "cfop",
+				"name": "appCfop",
+				"target": "cfop"
+			}, {
+				"pattern": "produto",
+				"name": "appProduto",
+				"target": "produto"
+			}],
+			"targets": {
+				"page": {
+					"id": "page",
+					"name": "Page",
+					"level": 1
+				},
+				"vigencia": {
+					"id": "vigencia",
+					"name": "Vigencia",
+					"transition": "slide"
+				},
+				"taxas": {
+					"id": "taxas",
+					"name": "Taxas",
+					"transition": "slide"
+				},
+				"cfop": {
+					"id": "cfop",
+					"name": "Cfop",
+					"transition": "slide"
+				},
+				"produto": {
+					"id": "produto",
+					"name": "Produto",
+					"transition": "slide"
+				}
+			}
+		}
+	},
+	"sap.platform.cf": {},
+	"sap.platform.runtime": {
+		"componentProperties": {
+			"url": "/"
+		}
+	}
+}

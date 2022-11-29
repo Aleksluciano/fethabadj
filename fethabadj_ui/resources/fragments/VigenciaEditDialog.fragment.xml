@@ -1,0 +1,24 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog id="VigenciaEditDialog" title="Editar vigência">
+		<VBox alignItems="Center">
+			<VBox alignItems="Start">
+				<Label text="Empresa:" labelFor="input-companye" class="margin1"/>
+				<Input id="input-companye" class="sapUiSmallMarginBottom" type="Text" enabled="true" editable="false" value="{/EMPRESA}"/>
+				<Label text="Estabelecimento:" labelFor="input-branche"/>
+				<Input id="input-branche" class="sapUiSmallMarginBottom" type="Text" enabled="true" editable="false" value="{/FILIAL}"/>
+				<Label text="Período Inicial:" labelFor="input-periode"/>
+				<Input id="input-periode" class="sapUiSmallMarginBottom" type="Text" enabled="true" editable="false" value="{/DT_INI}"/>
+				<Label required="true" text='Período final:' labelFor="DP11e"/>
+				<DatePicker id="DP11e" value="{/DT_FIN}" displayFormat="dd-MM-yyyy" change="handleChange2" class="sapUiSmallMarginBottom disabled"/>
+				<Label required="true" text="Regra: " labelFor="input-regrae"/>
+				<ComboBox id="input-regree" selectedKey="{/SelectedRegra}" items="{ path: '/RegraCollection', sorter: { path: 'Name' } }">
+					<core:Item key="{Id}" text="{Name}"/>
+				</ComboBox>
+			</VBox>
+		</VBox>
+		<buttons>
+			<Button text="Cancelar" width="100px" press=".onClose2"/>
+			<Button type="Emphasized" text="Salvar" press=".save2"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

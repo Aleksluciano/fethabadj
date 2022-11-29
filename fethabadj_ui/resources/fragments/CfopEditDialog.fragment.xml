@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog id="CfopEditDialog" title="Editar cfop">
+		<VBox alignItems="Center">
+			<VBox alignItems="Start">
+				<Label required="true" text="Cfop:" labelFor="input-iteme" class="margin1"/>
+				<Input id="input-iteme" class="sapUiSmallMarginBottom" type="Text" enabled="true" value="{/Cfop}" editable="false"/>
+				<Label required="true" text='Período inicial:' labelFor="DP10e"/>
+				<DatePicker id="DP10e" value="{/SelectedPeriod}" displayFormat="dd-MM-yyyy" change="handleChange" class="sapUiSmallMarginBottom disabled" editable="false"/>
+				<Label required="true" text='Período final:' labelFor="DP11e" />
+				<DatePicker id="DP11e" value="{/SelectedPeriod2}" displayFormat="dd-MM-yyyy" change="handleChange2" class="sapUiSmallMarginBottom disabled"/>
+			</VBox>
+		</VBox>
+		<buttons>
+			<Button text="Cancelar" width="100px" press=".onClose2"/>
+			<Button type="Emphasized" text="Salvar" press=".save2"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

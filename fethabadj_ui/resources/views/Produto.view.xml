@@ -1,0 +1,74 @@
+<mvc:View xmlns:core="sap.ui.core" controllerName="fethabadj_ui.controllers.Produto" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout" >
+	<Page title="Produtos itens" titleLevel="H1" showHeader="true" showNavButton="true" navButtonPress=".onNavBack"
+		class="sapUiResponsiveContentPadding">
+		<content>
+			<Button type="Emphasized" text="+ Adicionar" press="add"/>
+			<l:VerticalLayout class="sapUiContentPadding" width="100%">
+				<l:dependents>
+					<core:Fragment fragmentName="fethabadj_ui.fragments.ProdutoAddDialog" type="XML"/>
+				</l:dependents>
+			</l:VerticalLayout>
+			<l:VerticalLayout class="sapUiContentPadding" width="100%">
+				<l:dependents>
+					<core:Fragment fragmentName="fethabadj_ui.fragments.ProdutoEditDialog" type="XML"/>
+				</l:dependents>
+			</l:VerticalLayout>
+			<Table items="{ path: '/PRODUTO'}" id="tableProduto">
+				<columns >
+					<Column >
+						<Text text="PRODUTO"/>
+					</Column>
+					<Column >
+						<Text text="COD_ITEM"/>
+					</Column>
+					<Column >
+						<Text text="DT_INI"/>
+					</Column>
+					<Column >
+						<Text text="DT_FIN"/>
+					</Column>
+					<Column >
+						<Text text="Editar"/>
+					</Column>
+					<Column >
+						<Text text="Remover"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem >
+						<cells>
+							<Text text="{PRODUTO}"/>
+						</cells>
+						<cells>
+							<Text text="{COD_ITEM}"/>
+						</cells>
+						<cells>
+							<Text text="{DT_INI}"/>
+						</cells>
+						<cells>
+							<Text text="{DT_FIN}"/>
+						</cells>
+						<cells>
+							<Button id="modifyButton" icon="sap-icon://edit" press=".onEdit">
+								<customData>
+									<core:CustomData key="multi" value="{Id}"/>
+								</customData>
+							</Button>
+						</cells>
+						<cells>
+							<Button id="deleteButton" icon="sap-icon://delete" press=".onDelete">
+								<customData>
+									<core:CustomData key="multi" value="{Id}"/>
+								</customData>
+							</Button>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		<footer>
+			<OverflowToolbar></OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

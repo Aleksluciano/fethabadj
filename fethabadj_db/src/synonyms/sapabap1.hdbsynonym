@@ -1,0 +1,75 @@
+{
+  "adejo.view::/TMF/V_EMP_FED": {
+    "target": {
+      "object": "sap.glo.tmflocbr.ctr/EMPRESA_FEDERAL",
+      "schema": "_SYS_BIC"
+    }
+  },
+  "adejo.table::/TMF/D_ESTABELEC": {
+    "target": {
+      "object": "/TMF/D_ESTABELEC",
+      "schema": "SAPABAP1"
+    }
+  },
+  "adejo.view::/TMF/V_NF_DOC": {
+    "target": {
+      "object": "sap.glo.tmflocbr.ctr/NF_DOCUMENTO",
+      "schema": "_SYS_BIC"
+    }
+  },
+  "adejo.table::/TMF/D_NF_DOC": {
+    "target": {
+      "object": "/TMF/D_NF_DOC",
+      "schema": "SAPABAP1"
+    }
+  },
+  "adejo.table::LFA1": {},
+  "adejo.table::KNA1": {},
+  "adejo.table::ADRC": {},
+  "adejo.view::PRV_EMPRESA": {
+    "target": {
+      "object": "sap.glo.tmflocbr.ctr/PRV_EMPRESA",
+      "schema": "_SYS_BIC"
+    }
+  },
+  "adejo.view::PRV_EMPRESA_CNPJ": {
+    "target": {
+      "object": "sap.glo.tmflocbr.ctr/PRV_EMPRESA_CNPJ",
+      "schema": "_SYS_BIC"
+    }
+  },
+  "adejo.table::J_1BEFD_COUNTRY": {},
+  "adejo.view::PRV_PARTICIPANTE_ONE_TIME": {
+    "target": {
+      "object": "sap.glo.tmflocbr.ctr/PRV_PARTICIPANTE_ONE_TIME",
+      "schema": "_SYS_BIC"
+    }
+  },
+  "adejo.table::VIGENCIA": {
+    "target": {
+      "object": "fethabadj.fethabadj_db.data::VIGENCIA"
+    }
+  },
+  "adejo.view::NF_ITEM": {
+    "target": {
+      "object": "sap.glo.tmflocbr.ctr/NF_ITEM",
+      "schema": "_SYS_BIC"
+    }
+  },
+  "adejo.view::NF_IMPOSTO_RETIDO": {
+    "target": {
+      "object": "sap.glo.tmflocbr.ctr/NF_IMPOSTO_RETIDO",
+      "schema": "_SYS_BIC"
+    }
+  },
+  "adejo.table::CFOP": {
+    "target": {
+      "object": "fethabadj.fethabadj_db.data::CFOP"
+    }
+  },
+  "adejo.table::PRODUTO": {
+    "target": {
+      "object": "fethabadj.fethabadj_db.data::PRODUTO"
+    }
+  }
+}

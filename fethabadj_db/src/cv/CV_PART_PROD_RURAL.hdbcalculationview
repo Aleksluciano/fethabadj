@@ -1,0 +1,932 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_PART_PROD_RURAL" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false" propagateInstantiation="true">
+<descriptions defaultDescription="CV_PART"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="adejo.table::LFA1">
+    <resourceUri>adejo.table::LFA1</resourceUri>
+  </DataSource>
+  <DataSource id="adejo.table::KNA1">
+    <resourceUri>adejo.table::KNA1</resourceUri>
+  </DataSource>
+  <DataSource id="adejo.table::ADRC">
+    <resourceUri>adejo.table::ADRC</resourceUri>
+  </DataSource>
+  <DataSource id="adejo.view::PRV_EMPRESA">
+    <resourceUri>adejo.view::PRV_EMPRESA</resourceUri>
+  </DataSource>
+  <DataSource id="adejo.view::PRV_EMPRESA_CNPJ">
+    <resourceUri>adejo.view::PRV_EMPRESA_CNPJ</resourceUri>
+  </DataSource>
+  <DataSource id="adejo.table::J_1BEFD_COUNTRY">
+    <resourceUri>adejo.table::J_1BEFD_COUNTRY</resourceUri>
+  </DataSource>
+  <DataSource id="adejo.view::PRV_PARTICIPANTE_ONE_TIME">
+    <resourceUri>adejo.view::PRV_PARTICIPANTE_ONE_TIME</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="P_FORNECEDOR">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="COD_PART"/>
+      <viewAttribute id="NAME1"/>
+      <viewAttribute id="NAME2"/>
+      <viewAttribute id="CNPJ"/>
+      <viewAttribute id="CPF"/>
+      <viewAttribute id="IE"/>
+      <viewAttribute id="ADRNR"/>
+      <viewAttribute id="LAND1"/>
+      <viewAttribute id="IM"/>
+      <viewAttribute id="NUM_INFO_CRED"/>
+      <viewAttribute id="FABRIC_EXT"/>
+      <viewAttribute id="BRSCH"/>
+      <viewAttribute id="TELFX"/>
+      <viewAttribute id="ERDAT"/>
+      <viewAttribute id="CRTN"/>
+      <viewAttribute id="ICMSTAXPAY"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="NOME" datatype="NVARCHAR" length="255" expressionLanguage="COLUMN_ENGINE">
+        <formula>&quot;NAME1&quot; + '   ' + &quot;NAME2&quot;</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="adejo.table::LFA1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_PART" source="LIFNR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CNPJ" source="STCD1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CPF" source="STCD2"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IE" source="STCD3"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IM" source="STCD4"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUM_INFO_CRED" source="KRAUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FABRIC_EXT" source="EMNFR"/>
+    </input>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="P_CLIENTE">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="COD_PART"/>
+      <viewAttribute id="NAME1"/>
+      <viewAttribute id="NAME2"/>
+      <viewAttribute id="CNPJ"/>
+      <viewAttribute id="CPF"/>
+      <viewAttribute id="IE"/>
+      <viewAttribute id="LAND1"/>
+      <viewAttribute id="ADRNR"/>
+      <viewAttribute id="IM"/>
+      <viewAttribute id="SUFRAMA"/>
+      <viewAttribute id="BRSCH"/>
+      <viewAttribute id="TELFX"/>
+      <viewAttribute id="ERDAT"/>
+      <viewAttribute id="CRTN"/>
+      <viewAttribute id="ICMSTAXPAY"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="NOME" datatype="NVARCHAR" length="255" expressionLanguage="COLUMN_ENGINE">
+        <formula>&quot;NAME1&quot; + '   ' + &quot;NAME2&quot;</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="adejo.table::KNA1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_PART" source="KUNNR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CNPJ" source="STCD1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CPF" source="STCD2"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IE" source="STCD3"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IM" source="STCD4"/>
+    </input>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="U_CLIE_FORN">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="COD_PART"/>
+      <viewAttribute id="CNPJ"/>
+      <viewAttribute id="CPF"/>
+      <viewAttribute id="IE"/>
+      <viewAttribute id="LAND1"/>
+      <viewAttribute id="IM"/>
+      <viewAttribute id="NOME"/>
+      <viewAttribute id="ADRNR"/>
+      <viewAttribute id="SUFRAMA"/>
+      <viewAttribute id="NUM_INFO_CRED"/>
+      <viewAttribute id="FABRIC_EXT"/>
+      <viewAttribute id="BRSCH"/>
+      <viewAttribute id="TELFX"/>
+      <viewAttribute id="ERDAT"/>
+      <viewAttribute id="CRTN"/>
+      <viewAttribute id="ICMSTAXPAY"/>
+      <viewAttribute datatype="NVARCHAR" length="1" id="TIPO_PARTICIPANTE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="P_FORNECEDOR" emptyUnionBehavior="NO_ROW">
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_PART" source="COD_PART"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CNPJ" source="CNPJ"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CPF" source="CPF"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IE" source="IE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IM" source="IM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NOME" source="NOME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ADRNR" source="ADRNR"/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="SUFRAMA" null="true" value=""/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUM_INFO_CRED" source="NUM_INFO_CRED"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FABRIC_EXT" source="FABRIC_EXT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="BRSCH" source="BRSCH"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="TELFX" source="TELFX"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CRTN" source="CRTN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ICMSTAXPAY" source="ICMSTAXPAY"/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TIPO_PARTICIPANTE" null="false" value="V"/>
+    </input>
+    <input node="P_CLIENTE" emptyUnionBehavior="NO_ROW">
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_PART" source="COD_PART"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CNPJ" source="CNPJ"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CPF" source="CPF"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IE" source="IE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IM" source="IM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NOME" source="NOME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ADRNR" source="ADRNR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SUFRAMA" source="SUFRAMA"/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="NUM_INFO_CRED" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="FABRIC_EXT" null="true" value=""/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="BRSCH" source="BRSCH"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="TELFX" source="TELFX"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CRTN" source="CRTN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ICMSTAXPAY" source="ICMSTAXPAY"/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TIPO_PARTICIPANTE" null="false" value="C"/>
+    </input>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="P_CLIE_FORN">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="COD_PART"/>
+      <viewAttribute id="CNPJ"/>
+      <viewAttribute id="CPF"/>
+      <viewAttribute id="IE"/>
+      <viewAttribute id="LAND1"/>
+      <viewAttribute id="IM"/>
+      <viewAttribute id="NOME"/>
+      <viewAttribute id="ADRNR"/>
+      <viewAttribute id="SUFRAMA"/>
+      <viewAttribute id="NUM_INFO_CRED"/>
+      <viewAttribute id="FABRIC_EXT"/>
+      <viewAttribute id="COD_INDUSTRIA"/>
+      <viewAttribute id="FAX"/>
+      <viewAttribute id="DT_CRIACAO"/>
+      <viewAttribute id="CRTN"/>
+      <viewAttribute id="ICMSTAXPAY"/>
+      <viewAttribute id="TIPO_PARTICIPANTE"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="DATE_TO" datatype="NVARCHAR" length="8" expressionLanguage="COLUMN_ENGINE">
+        <formula>'99991231'</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="U_CLIE_FORN">
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_INDUSTRIA" source="BRSCH"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FAX" source="TELFX"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DT_CRIACAO" source="ERDAT"/>
+    </input>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="P_ENDERECO" filterExpressionLanguage="COLUMN_ENGINE">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="ADDRNUMBER"/>
+      <viewAttribute id="DATE_FROM"/>
+      <viewAttribute id="DATE_TO"/>
+      <viewAttribute id="TAXJURCODE"/>
+      <viewAttribute id="CITY1"/>
+      <viewAttribute id="CITY2"/>
+      <viewAttribute id="POST_CODE1"/>
+      <viewAttribute id="TEL_NUMBER"/>
+      <viewAttribute id="STREET"/>
+      <viewAttribute id="HOUSE_NUM1"/>
+      <viewAttribute id="HOUSE_NUM2"/>
+      <viewAttribute id="REGION"/>
+      <viewAttribute id="POST_CODE2"/>
+      <viewAttribute id="PO_BOX"/>
+      <viewAttribute id="NATION"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="COD_MUN" datatype="NVARCHAR" length="7" expressionLanguage="COLUMN_ENGINE">
+        <formula>rightstr(&quot;TAXJURCODE&quot;,7)</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="adejo.table::ADRC">
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="CLIENT"/>
+    </input>
+    <filter>isnull(&quot;NATION&quot;) or &quot;NATION&quot; = ''</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="J_CLIE_FORN_ENDE" cardinality="CN_1" joinType="leftOuter">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="DATE_TO"/>
+      <viewAttribute id="COD_PART"/>
+      <viewAttribute id="TIPO_PARTICIPANTE"/>
+      <viewAttribute id="CNPJ"/>
+      <viewAttribute id="CPF"/>
+      <viewAttribute id="IE"/>
+      <viewAttribute id="DATE_FROM"/>
+      <viewAttribute id="DESC_MUN"/>
+      <viewAttribute id="BAIRRO"/>
+      <viewAttribute id="ENDERECO"/>
+      <viewAttribute id="NUMERO"/>
+      <viewAttribute id="COMPLEMENTO"/>
+      <viewAttribute id="UF"/>
+      <viewAttribute id="COD_MUN"/>
+      <viewAttribute id="CEP"/>
+      <viewAttribute id="LAND1"/>
+      <viewAttribute id="NOME"/>
+      <viewAttribute id="ADRNR"/>
+      <viewAttribute id="FONE"/>
+      <viewAttribute id="IM"/>
+      <viewAttribute id="SUFRAMA"/>
+      <viewAttribute id="NUM_INFO_CRED"/>
+      <viewAttribute id="FABRIC_EXT"/>
+      <viewAttribute id="COD_CXPOSTAL"/>
+      <viewAttribute id="CAIXA_POSTAL"/>
+      <viewAttribute id="COD_INDUSTRIA"/>
+      <viewAttribute id="FAX"/>
+      <viewAttribute id="DT_CRIACAO"/>
+      <viewAttribute id="CRTN"/>
+      <viewAttribute id="ICMSTAXPAY"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="P_CLIE_FORN">
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DATE_TO" source="DATE_TO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_PART" source="COD_PART"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="TIPO_PARTICIPANTE" source="TIPO_PARTICIPANTE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CNPJ" source="CNPJ"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CPF" source="CPF"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IE" source="IE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NOME" source="NOME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ADRNR" source="ADRNR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IM" source="IM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SUFRAMA" source="SUFRAMA"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUM_INFO_CRED" source="NUM_INFO_CRED"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FABRIC_EXT" source="FABRIC_EXT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_INDUSTRIA" source="COD_INDUSTRIA"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FAX" source="FAX"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DT_CRIACAO" source="DT_CRIACAO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CRTN" source="CRTN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ICMSTAXPAY" source="ICMSTAXPAY"/>
+    </input>
+    <input node="P_ENDERECO">
+      <mapping xsi:type="Calculation:AttributeMapping" target="DATE_FROM" source="DATE_FROM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESC_MUN" source="CITY1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="BAIRRO" source="CITY2"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENDERECO" source="STREET"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUMERO" source="HOUSE_NUM1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COMPLEMENTO" source="HOUSE_NUM2"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="UF" source="REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_MUN" source="COD_MUN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CEP" source="POST_CODE1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FONE" source="TEL_NUMBER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_CXPOSTAL" source="POST_CODE2"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CAIXA_POSTAL" source="PO_BOX"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DATE_TO" source="DATE_TO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ADRNR" source="ADDRNUMBER"/>
+    </input>
+    <joinAttribute name="MANDT"/>
+    <joinAttribute name="DATE_TO"/>
+    <joinAttribute name="ADRNR"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="J_EMPRESA_CNPJ" cardinality="C1_1" joinType="leftOuter">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="EMPRESA"/>
+      <viewAttribute id="FILIAL"/>
+      <viewAttribute id="NOME"/>
+      <viewAttribute id="UF"/>
+      <viewAttribute id="IE"/>
+      <viewAttribute id="COD_MUN"/>
+      <viewAttribute id="COD_PAIS"/>
+      <viewAttribute id="ENDERECO"/>
+      <viewAttribute id="NUMERO"/>
+      <viewAttribute id="COMPLEMENTO"/>
+      <viewAttribute id="BAIRRO"/>
+      <viewAttribute id="CPF"/>
+      <viewAttribute id="DATA_ALTERACAO"/>
+      <viewAttribute id="ADRNR"/>
+      <viewAttribute id="CNPJ"/>
+      <viewAttribute id="DESC_MUN"/>
+      <viewAttribute id="CEP"/>
+      <viewAttribute id="FONE"/>
+      <viewAttribute id="IM"/>
+      <viewAttribute id="SUFRAMA"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="adejo.view::PRV_EMPRESA">
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EMPRESA" source="EMPRESA"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FILIAL" source="FILIAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NOME" source="NOME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="UF" source="UF"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IE" source="IE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_MUN" source="COD_MUN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_PAIS" source="COD_PAIS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENDERECO" source="ENDERECO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUMERO" source="NUMERO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COMPLEMENTO" source="COMPLEMENTO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="BAIRRO" source="BAIRRO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CPF" source="CPF"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DATA_ALTERACAO" source="DATA_ALTERACAO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ADRNR" source="ADRNR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESC_MUN" source="DESC_MUN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CEP" source="CEP"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FONE" source="FONE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IM" source="IM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SUFRAMA" source="SUFRAMA"/>
+    </input>
+    <input node="adejo.view::PRV_EMPRESA_CNPJ">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CNPJ" source="CNPJ"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EMPRESA" source="BUKRS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FILIAL" source="BRANCH"/>
+    </input>
+    <joinAttribute name="MANDT"/>
+    <joinAttribute name="EMPRESA"/>
+    <joinAttribute name="FILIAL"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="J_ENDE_PAIS" cardinality="C1_N" joinType="leftOuter">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="LAND1"/>
+      <viewAttribute id="DATE_FROM"/>
+      <viewAttribute id="COD_PART"/>
+      <viewAttribute id="TIPO_PARTICIPANTE"/>
+      <viewAttribute id="CNPJ"/>
+      <viewAttribute id="CPF"/>
+      <viewAttribute id="IE"/>
+      <viewAttribute id="BAIRRO"/>
+      <viewAttribute id="ENDERECO"/>
+      <viewAttribute id="NUMERO"/>
+      <viewAttribute id="COMPLEMENTO"/>
+      <viewAttribute id="UF"/>
+      <viewAttribute id="COD_MUN"/>
+      <viewAttribute id="COD_PAIS"/>
+      <viewAttribute id="NOME"/>
+      <viewAttribute id="ADRNR"/>
+      <viewAttribute id="DESC_MUN"/>
+      <viewAttribute id="CEP"/>
+      <viewAttribute id="FONE"/>
+      <viewAttribute id="IM"/>
+      <viewAttribute id="SUFRAMA"/>
+      <viewAttribute id="NUM_INFO_CRED"/>
+      <viewAttribute id="FABRIC_EXT"/>
+      <viewAttribute id="COD_CXPOSTAL"/>
+      <viewAttribute id="CAIXA_POSTAL"/>
+      <viewAttribute id="COD_INDUSTRIA"/>
+      <viewAttribute id="FAX"/>
+      <viewAttribute id="DT_CRIACAO"/>
+      <viewAttribute id="CRTN"/>
+      <viewAttribute id="ICMSTAXPAY"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="J_CLIE_FORN_ENDE">
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DATE_FROM" source="DATE_FROM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_PART" source="COD_PART"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="TIPO_PARTICIPANTE" source="TIPO_PARTICIPANTE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CNPJ" source="CNPJ"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CPF" source="CPF"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IE" source="IE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="BAIRRO" source="BAIRRO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENDERECO" source="ENDERECO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUMERO" source="NUMERO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COMPLEMENTO" source="COMPLEMENTO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="UF" source="UF"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_MUN" source="COD_MUN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NOME" source="NOME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ADRNR" source="ADRNR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESC_MUN" source="DESC_MUN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CEP" source="CEP"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FONE" source="FONE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IM" source="IM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SUFRAMA" source="SUFRAMA"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUM_INFO_CRED" source="NUM_INFO_CRED"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FABRIC_EXT" source="FABRIC_EXT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_CXPOSTAL" source="COD_CXPOSTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CAIXA_POSTAL" source="CAIXA_POSTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_INDUSTRIA" source="COD_INDUSTRIA"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FAX" source="FAX"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DT_CRIACAO" source="DT_CRIACAO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CRTN" source="CRTN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ICMSTAXPAY" source="ICMSTAXPAY"/>
+    </input>
+    <input node="adejo.table::J_1BEFD_COUNTRY">
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_PAIS" source="COD_PAIS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+    </input>
+    <joinAttribute name="MANDT"/>
+    <joinAttribute name="LAND1"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="P_ENDE_PAIS">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="DATE_FROM"/>
+      <viewAttribute id="COD_PART"/>
+      <viewAttribute id="TIPO_PART"/>
+      <viewAttribute id="CNPJ"/>
+      <viewAttribute id="CPF"/>
+      <viewAttribute id="IE"/>
+      <viewAttribute id="BAIRRO"/>
+      <viewAttribute id="ENDERECO"/>
+      <viewAttribute id="NUMERO"/>
+      <viewAttribute id="COMPLEMENTO"/>
+      <viewAttribute id="UF"/>
+      <viewAttribute id="COD_MUN"/>
+      <viewAttribute id="COD_PAIS"/>
+      <viewAttribute id="NOME"/>
+      <viewAttribute id="ADRNR"/>
+      <viewAttribute id="DESC_MUN"/>
+      <viewAttribute id="CEP"/>
+      <viewAttribute id="FONE"/>
+      <viewAttribute id="IM"/>
+      <viewAttribute id="SUFRAMA"/>
+      <viewAttribute id="NUM_INFO_CRED"/>
+      <viewAttribute id="FABRIC_EXT"/>
+      <viewAttribute id="COD_CXPOSTAL"/>
+      <viewAttribute id="CAIXA_POSTAL"/>
+      <viewAttribute id="COD_INDUSTRIA"/>
+      <viewAttribute id="FAX"/>
+      <viewAttribute id="DT_CRIACAO"/>
+      <viewAttribute id="CRTN"/>
+      <viewAttribute id="ICMSTAXPAY"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="CA_COD_PART" datatype="NVARCHAR" length="60" expressionLanguage="COLUMN_ENGINE">
+        <formula>sqladd(&quot;TIPO_PART&quot;,&quot;COD_PART&quot;)</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="J_ENDE_PAIS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="TIPO_PART" source="TIPO_PARTICIPANTE"/>
+    </input>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="P_EMPRESA_CNPJ">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="EMPRESA"/>
+      <viewAttribute id="FILIAL"/>
+      <viewAttribute id="NOME"/>
+      <viewAttribute id="UF"/>
+      <viewAttribute id="IE"/>
+      <viewAttribute id="COD_MUN"/>
+      <viewAttribute id="COD_PAIS"/>
+      <viewAttribute id="ENDERECO"/>
+      <viewAttribute id="NUMERO"/>
+      <viewAttribute id="COMPLEMENTO"/>
+      <viewAttribute id="BAIRRO"/>
+      <viewAttribute id="CPF"/>
+      <viewAttribute id="DATA_ALTERACAO"/>
+      <viewAttribute id="ADRNR"/>
+      <viewAttribute id="CNPJ"/>
+      <viewAttribute id="DESC_MUN"/>
+      <viewAttribute id="CEP"/>
+      <viewAttribute id="FONE"/>
+      <viewAttribute id="IM"/>
+      <viewAttribute id="SUFRAMA"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="TIPO_PART" datatype="NVARCHAR" length="1" expressionLanguage="COLUMN_ENGINE">
+        <formula>'B'</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="COD_PART" datatype="NVARCHAR" length="60" expressionLanguage="COLUMN_ENGINE">
+        <formula>sqladd(sqladd(&quot;TIPO_PART&quot;,rpad(&quot;EMPRESA&quot;,4)),&quot;FILIAL&quot;)</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="J_EMPRESA_CNPJ"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="P_ONE_TIME_PARTNER">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="TIPO_PART"/>
+      <viewAttribute id="COD_PART"/>
+      <viewAttribute id="NOME"/>
+      <viewAttribute id="CNPJ"/>
+      <viewAttribute id="CPF"/>
+      <viewAttribute id="IE"/>
+      <viewAttribute id="IM"/>
+      <viewAttribute id="SUFRAMA"/>
+      <viewAttribute id="COD_MUN"/>
+      <viewAttribute id="DESC_MUN"/>
+      <viewAttribute id="BAIRRO"/>
+      <viewAttribute id="ENDERECO"/>
+      <viewAttribute id="NUMERO"/>
+      <viewAttribute id="COMPLEMENTO"/>
+      <viewAttribute id="COD_PAIS"/>
+      <viewAttribute id="UF"/>
+      <viewAttribute id="CEP"/>
+      <viewAttribute id="FONE"/>
+      <viewAttribute id="COD_CXPOSTAL"/>
+      <viewAttribute id="CAIXA_POSTAL"/>
+      <viewAttribute id="FAX"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="adejo.view::PRV_PARTICIPANTE_ONE_TIME"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="U_PARTICIPANTE" ignoreMultipleOutputsForFilter="true">
+    <viewAttributes>
+    
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="TIPO_PART"/>
+      <viewAttribute id="NOME"/>
+      <viewAttribute id="UF"/>
+      <viewAttribute id="IE"/>
+      <viewAttribute id="COD_MUN"/>
+      <viewAttribute id="COD_PAIS"/>
+      <viewAttribute id="ENDERECO"/>
+      <viewAttribute id="NUMERO"/>
+      <viewAttribute id="COMPLEMENTO"/>
+      <viewAttribute id="BAIRRO"/>
+      <viewAttribute id="CPF"/>
+      <viewAttribute id="CNPJ"/>
+      <viewAttribute id="ADRNR"/>
+      <viewAttribute id="COD_PART"/>
+      <viewAttribute id="DATE_FROM"/>
+      <viewAttribute id="DESC_MUN"/>
+      <viewAttribute id="CEP"/>
+      <viewAttribute id="FONE"/>
+      <viewAttribute id="IM"/>
+      <viewAttribute id="SUFRAMA"/>
+      <viewAttribute id="NUM_INFO_CRED"/>
+      <viewAttribute id="FABRIC_EXT"/>
+      <viewAttribute id="COD_CXPOSTAL"/>
+      <viewAttribute id="CAIXA_POSTAL"/>
+      <viewAttribute id="COD_INDUSTRIA"/>
+      <viewAttribute id="FAX"/>
+      <viewAttribute id="DT_CRIACAO"/>
+      <viewAttribute id="CRTN"/>
+      <viewAttribute id="ICMSTAXPAY"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="P_ENDE_PAIS" emptyUnionBehavior="NO_ROW">
+      <mapping xsi:type="Calculation:AttributeMapping" target="TIPO_PART" source="TIPO_PART"/>
+    
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NOME" source="NOME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="UF" source="UF"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IE" source="IE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_MUN" source="COD_MUN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_PAIS" source="COD_PAIS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENDERECO" source="ENDERECO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUMERO" source="NUMERO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COMPLEMENTO" source="COMPLEMENTO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="BAIRRO" source="BAIRRO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CPF" source="CPF"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CNPJ" source="CNPJ"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ADRNR" source="ADRNR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_PART" source="CA_COD_PART"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DATE_FROM" source="DATE_FROM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESC_MUN" source="DESC_MUN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CEP" source="CEP"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FONE" source="FONE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IM" source="IM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SUFRAMA" source="SUFRAMA"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUM_INFO_CRED" source="NUM_INFO_CRED"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FABRIC_EXT" source="FABRIC_EXT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_CXPOSTAL" source="COD_CXPOSTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CAIXA_POSTAL" source="CAIXA_POSTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_INDUSTRIA" source="COD_INDUSTRIA"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FAX" source="FAX"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DT_CRIACAO" source="DT_CRIACAO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CRTN" source="CRTN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ICMSTAXPAY" source="ICMSTAXPAY"/>
+    </input>
+    <input node="P_EMPRESA_CNPJ" emptyUnionBehavior="NO_ROW">
+      <mapping xsi:type="Calculation:AttributeMapping" target="TIPO_PART" source="TIPO_PART"/>
+    
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NOME" source="NOME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="UF" source="UF"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IE" source="IE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_MUN" source="COD_MUN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_PAIS" source="COD_PAIS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENDERECO" source="ENDERECO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUMERO" source="NUMERO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COMPLEMENTO" source="COMPLEMENTO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="BAIRRO" source="BAIRRO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CPF" source="CPF"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CNPJ" source="CNPJ"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ADRNR" source="ADRNR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_PART" source="COD_PART"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DATE_FROM" source="DATA_ALTERACAO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESC_MUN" source="DESC_MUN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CEP" source="CEP"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FONE" source="FONE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IM" source="IM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SUFRAMA" source="SUFRAMA"/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="NUM_INFO_CRED" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="FABRIC_EXT" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COD_CXPOSTAL" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CAIXA_POSTAL" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COD_INDUSTRIA" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="FAX" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DT_CRIACAO" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CRTN" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ICMSTAXPAY" null="true" value=""/>
+    </input>
+    <input node="P_ONE_TIME_PARTNER" emptyUnionBehavior="NO_ROW">
+      <mapping xsi:type="Calculation:AttributeMapping" target="TIPO_PART" source="TIPO_PART"/>
+    
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NOME" source="NOME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="UF" source="UF"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IE" source="IE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_MUN" source="COD_MUN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_PAIS" source="COD_PAIS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENDERECO" source="ENDERECO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUMERO" source="NUMERO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COMPLEMENTO" source="COMPLEMENTO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="BAIRRO" source="BAIRRO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CPF" source="CPF"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CNPJ" source="CNPJ"/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ADRNR" null="true" value=""/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_PART" source="COD_PART"/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DATE_FROM" null="true" value=""/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESC_MUN" source="DESC_MUN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CEP" source="CEP"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FONE" source="FONE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IM" source="IM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SUFRAMA" source="SUFRAMA"/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="NUM_INFO_CRED" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="FABRIC_EXT" null="true" value=""/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_CXPOSTAL" source="COD_CXPOSTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CAIXA_POSTAL" source="CAIXA_POSTAL"/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COD_INDUSTRIA" null="true" value=""/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FAX" source="FAX"/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DT_CRIACAO" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CRTN" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ICMSTAXPAY" null="true" value=""/>
+    </input>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="P_PARTICIPANTE">
+    <viewAttributes>
+      <viewAttribute id="TIPO_PART"/>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="NOME"/>
+      <viewAttribute id="UF"/>
+      <viewAttribute id="IE"/>
+      <viewAttribute id="COD_MUN"/>
+      <viewAttribute id="COD_PAIS"/>
+      <viewAttribute id="ENDERECO"/>
+      <viewAttribute id="NUMERO"/>
+      <viewAttribute id="COMPLEMENTO"/>
+      <viewAttribute id="BAIRRO"/>
+      <viewAttribute id="CPF"/>
+      <viewAttribute id="CNPJ"/>
+      <viewAttribute id="ADRNR"/>
+      <viewAttribute id="COD_PART"/>
+      <viewAttribute id="DATE_FROM"/>
+      <viewAttribute id="DESC_MUN"/>
+      <viewAttribute id="CEP"/>
+      <viewAttribute id="FONE"/>
+      <viewAttribute id="IM"/>
+      <viewAttribute id="SUFRAMA"/>
+      <viewAttribute id="NUM_INFO_CRED"/>
+      <viewAttribute id="FABRIC_EXT"/>
+      <viewAttribute id="COD_CXPOSTAL"/>
+      <viewAttribute id="CAIXA_POSTAL"/>
+      <viewAttribute id="COD_INDUSTRIA"/>
+      <viewAttribute id="FAX"/>
+      <viewAttribute id="DT_CRIACAO"/>
+      <viewAttribute id="CRTN"/>
+      <viewAttribute id="ICMSTAXPAY"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="CA_IE_CA_ESP" datatype="NVARCHAR" length="18" expressionLanguage="COLUMN_ENGINE">
+        <formula>rightstr(replace(replace(replace(&quot;IE&quot;,'.',''),'/',''),'-',''),14)</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="CA_IE" datatype="NVARCHAR" length="14" expressionLanguage="COLUMN_ENGINE">
+        <formula>jf(match(&quot;CA_IE_CA_ESP&quot;,'*0*'),&quot;CA_IE_CA_ESP&quot;,(jf(match(&quot;CA_IE_CA_ESP&quot;,'*1*'),&quot;CA_IE_CA_ESP&quot;,(jf(match(&quot;CA_IE_CA_ESP&quot;,'*2*'),&quot;CA_IE_CA_ESP&quot;,(jf(match(&quot;CA_IE_CA_ESP&quot;,'*3*'),&quot;CA_IE_CA_ESP&quot;,(jf(match(&quot;CA_IE_CA_ESP&quot;,'*4*'),&quot;CA_IE_CA_ESP&quot;,(jf(match(&quot;CA_IE_CA_ESP&quot;,'*5*'),&quot;CA_IE_CA_ESP&quot;,(jf(match(&quot;CA_IE_CA_ESP&quot;,'*6*'),&quot;CA_IE_CA_ESP&quot;,(jf(match(&quot;CA_IE_CA_ESP&quot;,'*7*'),&quot;CA_IE_CA_ESP&quot;,(jf(match(&quot;CA_IE_CA_ESP&quot;,'*8*'),&quot;CA_IE_CA_ESP&quot;,(jf(match(&quot;CA_IE_CA_ESP&quot;,'*9*'),&quot;CA_IE_CA_ESP&quot;,(''))))))))))))))))))))
+
+</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="U_PARTICIPANTE"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="P_PARTICIPANTE">
+  <attributes>
+    <attribute id="TIPO_PART" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="TIPO_PART"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="TIPO_PART"/>
+    </attribute>
+    <attribute id="MANDT" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="MANDT"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="MANDT"/>
+    </attribute>
+    <attribute id="NOME" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NOME"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="NOME"/>
+    </attribute>
+    <attribute id="UF" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="UF"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="UF"/>
+    </attribute>
+    <attribute id="COD_MUN" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COD_MUN"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="COD_MUN"/>
+    </attribute>
+    <attribute id="COD_PAIS" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COD_PAIS"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="COD_PAIS"/>
+    </attribute>
+    <attribute id="ENDE" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ENDERECO"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="ENDERECO"/>
+    </attribute>
+    <attribute id="NUMERO" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NUMERO"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="NUMERO"/>
+    </attribute>
+    <attribute id="COMPLEMENTO" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COMPLEMENTO"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="COMPLEMENTO"/>
+    </attribute>
+    <attribute id="BAIRRO" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="BAIRRO"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="BAIRRO"/>
+    </attribute>
+    <attribute id="CPF" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CPF"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="CPF"/>
+    </attribute>
+    <attribute id="CNPJ" order="12" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CNPJ"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="CNPJ"/>
+    </attribute>
+    <attribute id="ADRNR" order="13" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ADRNR"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="ADRNR"/>
+    </attribute>
+    <attribute id="COD_PART" order="14" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CA_COD_PART"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="COD_PART"/>
+    </attribute>
+    <attribute id="DATA_ALTERACAO" order="15" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DATE_FROM"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="DATE_FROM"/>
+    </attribute>
+    <attribute id="DESC_MUN" order="16" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DESC_MUN"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="DESC_MUN"/>
+    </attribute>
+    <attribute id="CEP" order="17" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CEP"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="CEP"/>
+    </attribute>
+    <attribute id="FONE" order="18" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FONE"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="FONE"/>
+    </attribute>
+    <attribute id="IM" order="19" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="IM"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="IM"/>
+    </attribute>
+    <attribute id="SUFRAMA" order="20" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SUFRAMA"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="SUFRAMA"/>
+    </attribute>
+    <attribute id="NUM_INFO_CRED" order="21" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NUM_INFO_CRED"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="NUM_INFO_CRED"/>
+    </attribute>
+    <attribute id="FABRIC_EXT" order="22" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FABRIC_EXT"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="FABRIC_EXT"/>
+    </attribute>
+    <attribute id="COD_CXPOSTAL" order="23" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COD_CXPOSTAL"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="COD_CXPOSTAL"/>
+    </attribute>
+    <attribute id="CAIXA_POSTAL" order="24" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CAIXA_POSTAL"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="CAIXA_POSTAL"/>
+    </attribute>
+    <attribute id="COD_INDUSTRIA" order="25" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COD_INDUSTRIA"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="COD_INDUSTRIA"/>
+    </attribute>
+    <attribute id="FAX" order="26" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FAX"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="FAX"/>
+    </attribute>
+    <attribute id="DT_CRIACAO" order="27" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DT_CRIACAO"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="DT_CRIACAO"/>
+    </attribute>
+    <attribute id="CRTN" order="28" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CRTN"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="CRTN"/>
+    </attribute>
+    <attribute id="ICMSTAXPAY" order="29" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ICMSTAXPAY"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="ICMSTAXPAY"/>
+    </attribute>
+    <attribute id="CA_IE" order="30" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CA_IE"/>
+      <keyMapping columnObjectName="P_PARTICIPANTE" columnName="CA_IE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="439" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="P_FORNECEDOR" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="318" y="1186"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="P_CLIENTE" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="528" y="1186"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="U_CLIE_FORN" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="459" y="1046"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="P_CLIE_FORN" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="459" y="931"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="P_ENDERECO" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="249" y="921"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="J_CLIE_FORN_ENDE" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="300" y="761"/>
+      <rectangleSize height="30" width="213"/>
+    </shape>
+    <shape modelObjectName="P_CLIE_FORN" modelObjectNameSpace="J_CLIE_FORN_ENDE" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="192"/>
+    </shape>
+    <shape modelObjectName="P_ENDERECO" modelObjectNameSpace="J_CLIE_FORN_ENDE" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="164"/>
+    </shape>
+    <shape expanded="true" modelObjectName="J_EMPRESA_CNPJ" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="536" y="621"/>
+      <rectangleSize height="30" width="245"/>
+    </shape>
+    <shape modelObjectName="adejo.view::PRV_EMPRESA" modelObjectNameSpace="J_EMPRESA_CNPJ" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="223"/>
+    </shape>
+    <shape modelObjectName="adejo.view::PRV_EMPRESA_CNPJ" modelObjectNameSpace="J_EMPRESA_CNPJ" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="261"/>
+    </shape>
+    <shape expanded="true" modelObjectName="J_ENDE_PAIS" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="223" y="626"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="J_CLIE_FORN_ENDE" modelObjectNameSpace="J_ENDE_PAIS" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="192"/>
+    </shape>
+    <shape modelObjectName="adejo.table::J_1BEFD_COUNTRY" modelObjectNameSpace="J_ENDE_PAIS" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="252"/>
+    </shape>
+    <shape expanded="true" modelObjectName="P_ENDE_PAIS" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="58" y="486"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="P_EMPRESA_CNPJ" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="310" y="531"/>
+      <rectangleSize height="30" width="219"/>
+    </shape>
+    <shape expanded="true" modelObjectName="P_ONE_TIME_PARTNER" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="630" y="516"/>
+      <rectangleSize height="30" width="213"/>
+    </shape>
+    <shape expanded="true" modelObjectName="U_PARTICIPANTE" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="355" y="341"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="P_PARTICIPANTE" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="439" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,88 @@
+{
+	"roles": {
+		"Everyone": {
+			"_version": "1.0",
+			"identification": {
+				"id": "Everyone",
+				"namespace": "",
+				"entityType": "role"
+			},
+			"payload": {
+				"catalogs": [],
+				"groups": [{
+					"id": "adj_ui_GroupId"
+				}]
+			}
+		}
+	},
+	"applications": {
+
+		"fethabadj_ui": {
+			"sap.app": {
+				"_version": "1.3.0",
+				"id": "fethabadj_ui",
+				"title": "FETHAB",
+				"i18n": "i18n/i18n.properties",
+				"tags": {
+					"keywords": []
+				},
+				"crossNavigation": {
+					"inbounds": {
+						"fethabadj_uiShow": {
+							"semanticObject": "fethabadj_ui",
+							"action": "show",
+							"deviceTypes": {
+								"desktop": true,
+								"tablet": true,
+								"phone": true
+							},
+							"signature": {
+								"parameters": {},
+								"additionalParameters": "allowed"
+							}
+						}
+					},
+					"outbounds": {}
+				}
+			},
+			"sap.ui": {
+				"_version": "1.3.0",
+				"technology": "UI5"
+			},
+			"sap.ui5": {
+				"componentName": "fethabadj_ui",
+				"_version": "1.2.0"
+			},
+			"sap.platform.runtime": {
+				"componentProperties": {
+					"url": "fethab_ui_dest"
+				}
+			}
+		}
+
+	},
+	"groups": {
+		"adj_ui_GroupId": {
+			"identification": {
+				"id": "adj_ui_GroupId",
+				"i18n": "i18n/i18n.properties",
+				"namespace": "",
+				"title": "Custom T14SS"
+			},
+			"payload": {
+				"tiles": [{
+					"id": "fethabadj_ui_tile",
+					"title": "FETHAB",
+					"subTitle": "Fundo Habitação",
+					"icon": "sap-icon://share-2",
+					"appId": "fethabadj_ui",
+					"target": {
+						"semanticObject": "fethabadj_ui",
+						"action": "show",
+						"parameters": []
+					}
+				}]
+			}
+		}
+	}
+}

@@ -1,0 +1,26 @@
+{
+  "adejo.table::J_1BEFD_COUNTRY": {
+    "target": {
+      "object": "J_1BEFD_COUNTRY",
+      "schema.configure": "CROSS_SCHEMA_ACCESS/schema"
+    }
+  },
+  "adejo.table::LFA1": {
+    "target": {
+      "object": "LFA1",
+      "schema.configure": "CROSS_SCHEMA_ACCESS/schema"
+    }
+  },
+  "adejo.table::KNA1": {
+    "target": {
+      "object": "KNA1",
+      "schema.configure": "CROSS_SCHEMA_ACCESS/schema"
+    }
+  },
+  "adejo.table::ADRC": {
+    "target": {
+      "object": "ADRC",
+      "schema.configure": "CROSS_SCHEMA_ACCESS/schema"
+    }
+  }
+}

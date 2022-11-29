@@ -1,0 +1,6 @@
+ROW TABLE "fethabadj.fethabadj_db.data::CFOP" (
+     "CFOP" NVARCHAR(10) COMMENT 'Produto',
+	 "DT_INI" NVARCHAR(8) COMMENT 'Data de referência inicial',
+	 "DT_FIN" NVARCHAR(8) COMMENT 'Data de referência final',
+	 PRIMARY KEY ("CFOP","DT_INI"))
+	 COMMENT 'Parâmetros para determinar cfop'

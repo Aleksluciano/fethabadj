@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog id="EditDialog2" title="Editar código e tipo">
+		<VBox alignItems="Center">
+			<VBox alignItems="Start">
+				<Label required="true" text="Item incentivo:" labelFor="input-iteme" class="margin1"/>
+				<Input id="input-iteme" class="sapUiSmallMarginBottom" type="Text" enabled="true" editable="false" value="{/ITEM_INCENTIVO}"/>
+				<Label required="true" text="Código IRF:" labelFor="input-irfe"/>
+				<Input id="input-irfe" class="sapUiSmallMarginBottom" type="Text" enabled="true" editable="false" value="{/CODIGO_IRF}"/>
+				<Label required="true" text="TIpo Imposto:" labelFor="input-tipoe"/>
+				<Input id="input-tipoe" class="sapUiSmallMarginBottom" type="Text" enabled="true" editable="false" value="{/CAT_IMPOSTO}"/>
+				<Label text="Período Inicial:" labelFor="input-periode"/>
+				<Input id="input-periode" class="sapUiSmallMarginBottom" type="Text" enabled="true" editable="false" value="{/DT_INI}"/>
+				<Label required="true" text='Período final:' labelFor="DP11e"/>
+				<DatePicker id="DP11e" value="{/DT_FIN}" displayFormat="dd-MM-yyyy" change="handleChange2" class="sapUiSmallMarginBottom disabled"/>
+			</VBox>
+		</VBox>
+		<buttons>
+			<Button text="Cancelar" width="100px" press=".onClose2"/>
+			<Button type="Emphasized" text="Salvar" press=".save2"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

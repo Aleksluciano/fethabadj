@@ -1,0 +1,9 @@
+ROW TABLE "fethabadj.fethabadj_db.data::TAXA" (
+     "PRODUTO" NVARCHAR(20) COMMENT 'Produto',
+	 "ITEM_INCENTIVO" NVARCHAR(20) COMMENT 'Item incentivo',
+	 "DT_INI" NVARCHAR(8) COMMENT 'Data de referência inicial',
+	 "DT_FIN" NVARCHAR(8) COMMENT 'Data de referência final',
+	 "ALIQUOTA" DECIMAL(10,4) COMMENT 'Alíquota',
+	 "VALOR" DECIMAL(25,2) COMMENT 'Valor',
+	 PRIMARY KEY ("PRODUTO","ITEM_INCENTIVO","DT_INI"))
+	 COMMENT 'Parâmetros para determinar taxas'

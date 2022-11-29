@@ -1,0 +1,7 @@
+ROW TABLE "fethabadj.fethabadj_db.data::PRODUTO" (
+     "PRODUTO" NVARCHAR(20) COMMENT 'Produto',
+	 "COD_ITEM" NVARCHAR(60) COMMENT 'Código item',
+	 "DT_INI" NVARCHAR(8) COMMENT 'Data de referência inicial',
+	 "DT_FIN" NVARCHAR(8) COMMENT 'Data de referência final',
+	 PRIMARY KEY ("PRODUTO","COD_ITEM","DT_INI"))
+	 COMMENT 'Parâmetros para determinar produtos'
