@@ -65,10 +65,10 @@ sap.ui.define([], function () {
 			Name: ""
 		}, {
 			Id: 1,
-			Name: "1 - Entrada"
+			Name: "1 - Saída - Entrada"
 		}, {
 			Id: 2,
-			Name: "2 - Saída"
+			Name: "2 - Entrada - Saída"
 		}]
 	};
 });

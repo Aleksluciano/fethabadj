@@ -165,7 +165,7 @@ sap.ui.define([
 					b.BASE_CALC = oFloatFormat6.format(a.BASE_CALC);
 					b.ALIQUOTA = oFloatFormat4.format(a.ALIQUOTA);
 					b.VL_UPF = oFloatFormat2.format(a.VL_UPF);
-					b.VL_FETHAB = oFloatFormat2.format(a.VL_UPF);
+					b.VL_FETHAB = oFloatFormat2.format(a.VL_FETHAB);
 					return b;
 				});
 				oConfiguration = {

@@ -21,7 +21,7 @@ module.exports = () => {
 			direct
 		} = req.body;
 		const period1 = period.slice(6) + period.slice(3, 5) + '01';
-		const newdate = new Date(period.slice(6), parseFloat(period.slice(3, 5)) + 1, 0);
+		const newdate = new Date(period.slice(6), parseInt(period.slice(3, 5)), 0);
 		const period2 = period.slice(6) + period.slice(3, 5) + newdate.getDate().toString();
 
 		//validações
@@ -68,7 +68,7 @@ FROM "CV_FETHAB"
 			console.log(v_vigencia_table);
 			let regra = v_vigencia_table.length > 0 ? v_vigencia_table[0].REGRA : "";
 			for (const v_fethab of v_fethab_table) {
-                v_fethab.CA_VL_UNID = parseFloat(v_fethab.CA_VL_UNID).toFixed(6);
+				v_fethab.CA_VL_UNID = parseFloat(v_fethab.CA_VL_UNID).toFixed(6);
 				if (direct == '3') {
 
 					if (regra == '1') {
@@ -106,31 +106,32 @@ FROM "CV_FETHAB"
 			}
 
 			const resultSum = [];
-			const line = {
-				DIRECT: '',
-				ITEM_INCENTIVO: '',
-				BASE_CALC: 0,
-				ALIQUOTA: 0,
-				VL_UPF: 0,
-				VL_FETHAB: 0
-			}
 
 			const qtd = parseFloat(vl_qtd_total) / 1000;
+			if (resultAll.length > 0) {
+				for (const v_taxa of v_taxa_table) {
+					const line = {
+						DIRECT: '',
+						ITEM_INCENTIVO: '',
+						BASE_CALC: 0,
+						ALIQUOTA: 0,
+						VL_UPF: 0,
+						VL_FETHAB: 0
+					}
+					line.DIRECT = direct;
+					line.ITEM_INCENTIVO = v_taxa.ITEM_INCENTIVO;
+					line.BASE_CALC = parseFloat(qtd).toFixed(6);
+					line.ALIQUOTA = v_taxa.ALIQUOTA;
+					line.VL_UPF = v_taxa.VALOR;
 
-			for (const v_taxa of v_taxa_table) {
-				line.DIRECT = direct;
-				line.ITEM_INCENTIVO = v_taxa.ITEM_INCENTIVO;
-				line.BASE_CALC = parseFloat(qtd).toFixed(6);
-				line.ALIQUOTA = v_taxa.ALIQUOTA;
-				line.VL_UPF = v_taxa.VALOR;
+					if (qtd > 0) {
+						line.VL_FETHAB = parseFloat(((parseFloat(v_taxa.VALOR) * parseFloat(v_taxa.ALIQUOTA)) / 100) * parseFloat(qtd)).toFixed(6);
+					}
+					console.log(line);
 
-				if (qtd > 0) {
-					line.VL_FETHAB = parseFloat(((v_taxa.VALOR * v_taxa.ALIQUOTA) / 100) * parseFloat(qtd)).toFixed(6);
+					resultSum.push(line);
 				}
-
-				resultSum.push(line);
 			}
-
 			return res.type("application/json").status(200).send({
 				result: resultAll,
 				resultSum: resultSum
